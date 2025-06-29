@@ -30,11 +30,26 @@
         <div class="col" th:each="movie : ${movies}">
             <div class="card h-100">
                 <img th:src="${movie.posterUrl}" class="card-img-top" alt="포스터" style="height: 400px; object-fit: cover;">
+
+                <!--                <img th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}" class="card-img-top" alt="포스터" style="height: 400px; object-fit: cover;">-->
+
+<!--                <img th:src="${movie.posterUrl}" class="card-img-top" alt="포스터" style="height: 400px; object-fit: cover;">-->
+
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a th:href="@{/movies/{id}(id=${movie.movieId})}"
+
+<!--                        <a th:href="@{/movies/{id}(id=${movie.movieId})}"-->
+<!--                           th:text="${movie.title}"-->
+<!--                           class="text-decoration-none text-dark"></a>-->
+
+
+                        <a th:if="${movie.movieId != null}"
+                           th:href="@{/movies/{id}(id=${movie.movieId})}"
                            th:text="${movie.title}"
                            class="text-decoration-none text-dark"></a>
+
+                        <span th:if="${movie.movieId == null}" th:text="${movie.title}" class="text-dark"></span>
+
                     </h5>
                      <p class="card-text">
                         <strong>개봉일: </strong>

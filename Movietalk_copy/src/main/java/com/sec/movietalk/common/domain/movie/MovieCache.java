@@ -24,9 +24,6 @@ public class MovieCache {
 //    @Column(name = "movie_id")
 //    private Integer tmdbId;
 
-    @Column(name = "tmdb_id")
-    private Integer tmdbId;
-
     @Column(length = 255)
     private String title;
 

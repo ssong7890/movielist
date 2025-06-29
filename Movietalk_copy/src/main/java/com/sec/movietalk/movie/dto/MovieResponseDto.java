@@ -16,10 +16,11 @@ public class MovieResponseDto {
 
     public static MovieResponseDto fromEntity(MovieCache movie) {
         return MovieResponseDto.builder()
-                .movieId(movie.getTmdbId())
+                .movieId(movie.getMovieId())
                 .title(movie.getTitle())
                 .posterUrl(movie.getPosterUrl())
                 .releaseDate(movie.getReleaseDate())
                 .build();
+
     }
 }

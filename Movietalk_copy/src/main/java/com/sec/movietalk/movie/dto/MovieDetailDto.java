@@ -38,6 +38,12 @@ public class MovieDetailDto {
     @JsonProperty("production_countries")
     private List<ProductionCountry> productionCountries;
 
+    // ✅ 추가된 필드
+    @JsonProperty("adult")
+    private boolean adult;
+
+    private boolean restricted = false;
+
     // 내부 클래스: 장르
     @Getter
     @Setter
