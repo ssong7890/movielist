@@ -23,7 +23,9 @@
 
     <!-- 🎯 검색 결과 메시지 -->
     <div th:if="${keyword != null}" class="mb-4">
-        <h4><span th:text="'\'' + ${keyword} + '\''"></span> 에 대한 검색 결과</h4>
+        <h4><span th:text="'\'' + ${keyword} + '\''"></span> 에 대한 검색 결과
+            <span th:text="|(${resultCount}건)|"> (0건)</span>
+        </h4>
     </div>
 
     <!-- 🔔 검색 결과 없음 -->
@@ -31,7 +33,9 @@
         <p class="text-muted">검색 결과가 없습니다.</p>
     </div>
 
-    <h2 class="mb-4">최신 개봉작 목록</h2>
+    <h2 class="mb-4" th:if="${keyword == null}">최신 개봉작 목록</h2>
+    <h2 class="mb-4" th:if="${keyword != null}">TMDB [관련도 + 인기도] 순으로 정렬</h2>
+
 
     <!-- 🖼 영화 카드 출력 -->
     <div class="row row-cols-1 row-cols-md-5 g-4" th:if="${movies != null and !movies.isEmpty()}">
@@ -65,23 +69,43 @@
     </div>
 
     <!-- 📄 페이지네이션 -->
-    <div class="mt-5" th:if="${totalPages > 1}">
+    <div class="mt-5" th:if="${totalPages > 0}">
         <nav>
             <ul class="pagination justify-content-center">
+
+                <!-- ⏮ 이전 버튼 -->
+                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                    <a class="page-link"
+                       th:if="${keyword != null}"
+                       th:href="@{/movies/search(page=${currentPage - 1}, keyword=${keyword})}">&lt;</a>
+                    <a class="page-link"
+                       th:if="${keyword == null}"
+                       th:href="@{/movies(page=${currentPage - 1})}">&lt;</a>
+                </li>
+
+                <!-- 🔢 숫자 페이지 -->
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                     th:classappend="${i == currentPage} ? 'active'">
-                    <!-- 🎯 검색 중이면 검색 링크 유지 -->
                     <a class="page-link"
                        th:if="${keyword != null}"
                        th:href="@{/movies/search(page=${i}, keyword=${keyword})}"
                        th:text="${i + 1}">1</a>
-
-                    <!-- 🎬 검색 아닐 경우 기본 목록 링크 -->
                     <a class="page-link"
                        th:if="${keyword == null}"
                        th:href="@{/movies(page=${i})}"
                        th:text="${i + 1}">1</a>
                 </li>
+
+                <!-- ⏭ 다음 버튼 -->
+                <li class="page-item" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+                    <a class="page-link"
+                       th:if="${keyword != null}"
+                       th:href="@{/movies/search(page=${currentPage + 1}, keyword=${keyword})}">&gt;</a>
+                    <a class="page-link"
+                       th:if="${keyword == null}"
+                       th:href="@{/movies(page=${currentPage + 1})}">&gt;</a>
+                </li>
+
             </ul>
         </nav>
         <p class="text-center text-muted">총 페이지: <span th:text="${totalPages}"></span></p>

@@ -27,9 +27,8 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final TmdbClient tmdbClient;
 
-    private static final int PAGE_SIZE = 15;
+    private static final int PAGE_SIZE = 20;
 
-    // ✅ 내부 DB 영화 목록 (페이지네이션 적용)
     public Page<MovieResponseDto> getPagedMovies(int page) {
         Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("releaseDate").descending());
         Page<MovieCache> moviePage = movieRepository.findAll(pageable);
@@ -81,10 +80,9 @@ public class MovieService {
         return detail;
     }
 
-    // ✅ TMDB 검색 결과 페이지네이션 (한 페이지당 최대 15개만 사용)
     public Page<MovieSearchResultDto> searchMoviesFromTmdb(String keyword, int page) {
         String encodedKeyword = UriUtils.encode(keyword, StandardCharsets.UTF_8);
-        int tmdbPage = page + 1; // TMDB는 page=1부터 시작
+        int tmdbPage = page + 1;
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + tmdbClient.getApiKey()
                 + "&language=ko-KR"
                 + "&include_adult=false"
@@ -97,32 +95,56 @@ public class MovieService {
         try {
             JsonNode response = restTemplate.getForObject(url, JsonNode.class);
             JsonNode results = response.path("results");
+            int total = response.path("total_results").asInt(0);
 
             for (JsonNode result : results) {
+                boolean adult = result.path("adult").asBoolean(false);
+                String overview = result.path("overview").asText("").toLowerCase();
+
+                if (adult || overview.contains("nudity") || overview.contains("sexual")
+                        || overview.contains("성인") || overview.contains("19금")) {
+                    continue; // 성인 영화 또는 선정적 내용 필터링
+                }
+
                 Long id = result.path("id").asLong();
                 String title = result.path("title").asText(null);
                 if (title == null || title.isBlank()) continue;
 
-                String overview = result.path("overview").asText();
                 String posterPath = result.path("poster_path").asText(null);
                 String releaseDate = result.path("release_date").asText(null);
                 String posterUrl = posterPath != null ? "https://image.tmdb.org/t/p/w500" + posterPath : null;
-                boolean adult = result.path("adult").asBoolean(false);
 
                 MovieSearchResultDto dto = new MovieSearchResultDto(id, title, overview, posterPath, releaseDate, posterUrl, adult);
                 searchResults.add(dto);
             }
 
+            int start = 0;
+            int end = Math.min(PAGE_SIZE, searchResults.size());
+            List<MovieSearchResultDto> pagedList = searchResults.subList(start, end);
+
+            return new PageImpl<>(pagedList, PageRequest.of(page, PAGE_SIZE), total);
+
         } catch (RestClientException e) {
             log.error("TMDB 검색 API 호출 실패: {}", e.getMessage());
             return Page.empty();
         }
+    }
 
-        int start = 0;
-        int end = Math.min(PAGE_SIZE, searchResults.size());
-        List<MovieSearchResultDto> pagedList = searchResults.subList(start, end);
+    public int getSearchResultCount(String keyword) {
+        String encodedKeyword = UriUtils.encode(keyword, StandardCharsets.UTF_8);
+        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + tmdbClient.getApiKey()
+                + "&language=ko-KR"
+                + "&include_adult=false"
+                + "&page=1"
+                + "&query=" + encodedKeyword;
 
-        // TMDB는 총 개수 제공하지만 정확한 totalPages 계산이 어려울 수 있으므로 임의값 사용
-        return new PageImpl<>(pagedList, PageRequest.of(page, PAGE_SIZE), 1000); // total은 충분히 큰 값으로
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            JsonNode response = restTemplate.getForObject(url, JsonNode.class);
+            return response.path("total_results").asInt(0);
+        } catch (RestClientException e) {
+            log.error("TMDB 검색 수 조회 실패: {}", e.getMessage());
+            return 0;
+        }
     }
 }

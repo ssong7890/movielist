@@ -43,6 +43,16 @@
         <p><strong>러닝타임:</strong> <span th:text="${detail.runtime} + '분'">120분</span></p>
     </div>
 
+    <!-- 🎬 줄거리 출력 -->
+    <!-- 🎬 줄거리 출력 -->
+    <div class="mt-4">
+        <h5>줄거리</h5>
+        <p th:text="${detail.overview != null && !#strings.isEmpty(detail.overview)
+                  ? detail.overview : '줄거리 정보가 없습니다.'}">
+        </p>
+    </div>
+
+
     <div class="d-flex justify-content-center mt-5 gap-3">
         <a th:if="${movie != null}" th:href="@{/reviews/new(movieId=${movie.movieId})}" class="btn btn-primary">리뷰 작성하기</a>
         <a th:href="@{/movies}" class="btn btn-secondary">목록으로 돌아가기</a>

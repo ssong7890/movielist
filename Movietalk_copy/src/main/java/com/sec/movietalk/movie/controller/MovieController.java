@@ -71,8 +71,11 @@ public class MovieController {
                                @RequestParam(defaultValue = "0") int page,
                                Model model) {
         Page<MovieSearchResultDto> results = movieService.searchMoviesFromTmdb(keyword, page);
+        int resultCount = movieService.getSearchResultCount(keyword); // ✅ 추가된 부분
+
         model.addAttribute("movies", results.getContent());
         model.addAttribute("keyword", keyword);
+        model.addAttribute("resultCount", resultCount); // ✅ 검색 결과 개수
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", results.getTotalPages());
         return "movie/list";
