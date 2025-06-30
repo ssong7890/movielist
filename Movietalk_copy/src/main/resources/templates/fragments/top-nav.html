@@ -1,0 +1,17 @@
+<!-- templates/fragments/top-nav.html -->
+<nav th:fragment="topNav" style="background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.05); padding: 0 40px;">
+  <div style="display: flex; align-items: center; height:60px; max-width: 1200px; margin: 0 auto;">
+    <div style="font-size:1.6em; font-weight:bold; color:#4CAF50; letter-spacing:1px;">
+      <a href="/home" style="text-decoration:none; color:inherit;">MovieTalk</a>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display: flex; gap: 25px;">
+      <a href="/reviews" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">영화리뷰</a>
+      <a href="/movies" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">영화정보</a>
+      <a href="/recommend" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">영화추천</a>
+      <a href="/popular" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">인기영화</a>
+      <a href="/actors/search" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">배우정보</a>
+      <a href="/mypage" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">마이페이지</a>
+    </div>
+  </div>
+</nav>
