@@ -60,9 +60,31 @@
                         <span th:text="${movie.releaseDate}">2025-07-01</span>
                     </p>
                 </div>
-
             </div>
         </div>
+    </div>
+
+    <!-- 📄 페이지네이션 -->
+    <div class="mt-5" th:if="${totalPages > 1}">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <!-- 🎯 검색 중이면 검색 링크 유지 -->
+                    <a class="page-link"
+                       th:if="${keyword != null}"
+                       th:href="@{/movies/search(page=${i}, keyword=${keyword})}"
+                       th:text="${i + 1}">1</a>
+
+                    <!-- 🎬 검색 아닐 경우 기본 목록 링크 -->
+                    <a class="page-link"
+                       th:if="${keyword == null}"
+                       th:href="@{/movies(page=${i})}"
+                       th:text="${i + 1}">1</a>
+                </li>
+            </ul>
+        </nav>
+        <p class="text-center text-muted">총 페이지: <span th:text="${totalPages}"></span></p>
     </div>
 
 </div>

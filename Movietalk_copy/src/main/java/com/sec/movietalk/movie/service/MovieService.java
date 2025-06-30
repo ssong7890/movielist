@@ -9,16 +9,15 @@ import com.sec.movietalk.movie.dto.MovieSearchResultDto;
 import com.sec.movietalk.movie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriUtils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,10 +27,16 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final TmdbClient tmdbClient;
 
-    public List<MovieResponseDto> getAllMoviesSortedByReleaseDate() {
-        return movieRepository.findAllByOrderByReleaseDateDesc().stream()
+    private static final int PAGE_SIZE = 15;
+
+    // ✅ 내부 DB 영화 목록 (페이지네이션 적용)
+    public Page<MovieResponseDto> getPagedMovies(int page) {
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("releaseDate").descending());
+        Page<MovieCache> moviePage = movieRepository.findAll(pageable);
+        List<MovieResponseDto> dtoList = moviePage.stream()
                 .map(MovieResponseDto::fromEntity)
-                .toList();
+                .collect(Collectors.toList());
+        return new PageImpl<>(dtoList, pageable, moviePage.getTotalElements());
     }
 
     public MovieResponseDto getMovieById(Long id) {
@@ -76,11 +81,14 @@ public class MovieService {
         return detail;
     }
 
-    public List<MovieSearchResultDto> searchMoviesFromTmdb(String keyword) {
+    // ✅ TMDB 검색 결과 페이지네이션 (한 페이지당 최대 15개만 사용)
+    public Page<MovieSearchResultDto> searchMoviesFromTmdb(String keyword, int page) {
         String encodedKeyword = UriUtils.encode(keyword, StandardCharsets.UTF_8);
+        int tmdbPage = page + 1; // TMDB는 page=1부터 시작
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + tmdbClient.getApiKey()
                 + "&language=ko-KR"
                 + "&include_adult=false"
+                + "&page=" + tmdbPage
                 + "&query=" + encodedKeyword;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -98,18 +106,23 @@ public class MovieService {
                 String overview = result.path("overview").asText();
                 String posterPath = result.path("poster_path").asText(null);
                 String releaseDate = result.path("release_date").asText(null);
-
                 String posterUrl = posterPath != null ? "https://image.tmdb.org/t/p/w500" + posterPath : null;
                 boolean adult = result.path("adult").asBoolean(false);
 
-                MovieSearchResultDto dto = new MovieSearchResultDto( id, title, overview, posterPath, releaseDate, posterUrl, adult);
+                MovieSearchResultDto dto = new MovieSearchResultDto(id, title, overview, posterPath, releaseDate, posterUrl, adult);
                 searchResults.add(dto);
             }
+
         } catch (RestClientException e) {
             log.error("TMDB 검색 API 호출 실패: {}", e.getMessage());
-            return Collections.emptyList();
+            return Page.empty();
         }
 
-        return searchResults;
+        int start = 0;
+        int end = Math.min(PAGE_SIZE, searchResults.size());
+        List<MovieSearchResultDto> pagedList = searchResults.subList(start, end);
+
+        // TMDB는 총 개수 제공하지만 정확한 totalPages 계산이 어려울 수 있으므로 임의값 사용
+        return new PageImpl<>(pagedList, PageRequest.of(page, PAGE_SIZE), 1000); // total은 충분히 큰 값으로
     }
 }
