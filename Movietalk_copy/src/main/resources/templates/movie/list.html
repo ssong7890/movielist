@@ -9,56 +9,62 @@
 
 <div class="container my-5">
 
+    <!-- 🔍 검색창 -->
     <form th:action="@{/movies/search}" method="get" class="d-flex justify-content-end mb-4" style="gap: 0.5rem;">
-        <!-- 드롭다운 메뉴 -->
-        <select name="category" class="form-select w-auto">
-            <option value="title">제목</option>
-            <option value="description">줄거리(키워드)</option>
+        <select name="category" class="form-select w-auto" disabled>
+            <option value="keyword" selected>키워드(제목, 줄거리)</option>
         </select>
 
-        <!-- 검색어 입력창 -->
-        <input type="text" name="keyword" class="form-control w-25" placeholder="검색어를 입력하세요">
+        <input type="text" name="keyword" class="form-control w-25"
+               placeholder="검색어를 입력하세요" th:value="${keyword}">
 
-        <!-- 검색 버튼 -->
         <button type="submit" class="btn btn-primary">검색</button>
     </form>
 
+    <!-- 🎯 검색 결과 메시지 -->
+    <div th:if="${keyword != null}" class="mb-4">
+        <h4><span th:text="'\'' + ${keyword} + '\''"></span> 에 대한 검색 결과</h4>
+    </div>
+
+    <!-- 🔔 검색 결과 없음 -->
+    <div th:if="${movies != null and movies.isEmpty()}" class="mb-4">
+        <p class="text-muted">검색 결과가 없습니다.</p>
+    </div>
 
     <h2 class="mb-4">최신 개봉작 목록</h2>
 
-    <div class="row row-cols-1 row-cols-md-5 g-4" th:if="${movies != null}">
+    <!-- 🖼 영화 카드 출력 -->
+    <div class="row row-cols-1 row-cols-md-5 g-4" th:if="${movies != null and !movies.isEmpty()}">
         <div class="col" th:each="movie : ${movies}">
             <div class="card h-100">
-                <img th:src="${movie.posterUrl}" class="card-img-top" alt="포스터" style="height: 400px; object-fit: cover;">
-
-                <!--                <img th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}" class="card-img-top" alt="포스터" style="height: 400px; object-fit: cover;">-->
-
-<!--                <img th:src="${movie.posterUrl}" class="card-img-top" alt="포스터" style="height: 400px; object-fit: cover;">-->
+                <a th:href="@{/movies/{id}(id=${movie.id})}">
+                    <img th:if="${movie.posterUrl != null}"
+                         th:src="${movie.posterUrl}"
+                         class="card-img-top"
+                         alt="포스터"
+                         style="height: 400px; object-fit: cover;">
+                    <div th:if="${movie.posterUrl == null}"
+                         class="card-img-top bg-secondary text-white text-center py-5">
+                        이미지 없음
+                    </div>
+                </a>
 
                 <div class="card-body">
                     <h5 class="card-title">
-
-<!--                        <a th:href="@{/movies/{id}(id=${movie.movieId})}"-->
-<!--                           th:text="${movie.title}"-->
-<!--                           class="text-decoration-none text-dark"></a>-->
-
-
-                        <a th:if="${movie.movieId != null}"
-                           th:href="@{/movies/{id}(id=${movie.movieId})}"
+                        <a th:href="@{/movies/{id}(id=${movie.id})}"
                            th:text="${movie.title}"
                            class="text-decoration-none text-dark"></a>
-
-                        <span th:if="${movie.movieId == null}" th:text="${movie.title}" class="text-dark"></span>
-
                     </h5>
-                     <p class="card-text">
+                    <p class="card-text">
                         <strong>개봉일: </strong>
                         <span th:text="${movie.releaseDate}">2025-07-01</span>
                     </p>
                 </div>
+
             </div>
         </div>
     </div>
+
 </div>
 
 </body>

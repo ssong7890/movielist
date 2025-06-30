@@ -23,4 +23,10 @@ public class MovieResponseDto {
                 .build();
 
     }
+
+    // ✅ 추가된 부분: 공통 id 접근자
+    public Long getId() {
+        return this.movieId != null ? this.movieId.longValue() : null;
+    }
+
 }
