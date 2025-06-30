@@ -16,10 +16,17 @@ public class MovieResponseDto {
 
     public static MovieResponseDto fromEntity(MovieCache movie) {
         return MovieResponseDto.builder()
-                .movieId(movie.getTmdbId())
+                .movieId(movie.getMovieId())
                 .title(movie.getTitle())
                 .posterUrl(movie.getPosterUrl())
                 .releaseDate(movie.getReleaseDate())
                 .build();
+
     }
+
+    // ✅ 추가된 부분: 공통 id 접근자
+    public Long getId() {
+        return this.movieId != null ? this.movieId.longValue() : null;
+    }
+
 }
