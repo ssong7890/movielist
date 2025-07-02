@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>홈</title>
+    <style>
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            margin: 86px auto 0 auto;
+            max-width: 390px;
+            background: #fff;
+            border-radius: 22px;
+            box-shadow: 0 4px 20px rgba(45, 85, 60, 0.10);
+            padding: 42px 36px 30px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            gap: 24px;
+        }
+        .home-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: #28826d;
+            margin-bottom: 8px;
+            letter-spacing: -1.5px;
+        }
+        .nickname {
+            color: #21564b;
+            background: #e6fcf5;
+            font-size: 1.13em;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 0 7px 0;
+            margin-bottom: 3px;
+            width: 100%;
+            box-shadow: 0 1.5px 8px rgba(0,150,120,0.05);
+        }
+        .menu {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 4px;
+        }
+        .menu a {
+            display: block;
+            width: 100%;
+            background: linear-gradient(90deg, #39b38b 70%, #257559 100%);
+            color: #fff;
+            font-size: 1.08em;
+            border-radius: 9px;
+            padding: 13px 0 12px 0;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: -0.4px;
+            box-shadow: 0 1.5px 10px rgba(30, 170, 120, 0.07);
+            transition: background 0.15s, box-shadow 0.15s;
+        }
+        .menu a:hover {
+            background: linear-gradient(90deg, #257559 60%, #39b38b 100%);
+            box-shadow: 0 4px 16px rgba(30,170,120,0.15);
+        }
+        .logout-btn {
+            margin-top: 10px;
+            width: 100%;
+            background: linear-gradient(90deg, #e74848 65%, #b83232 100%);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 9px;
+            padding: 13px 0 12px 0;
+            border: none;
+            font-size: 1.06em;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(200,60,60,0.10);
+            transition: background 0.13s, box-shadow 0.13s;
+        }
+        .logout-btn:hover {
+            background: linear-gradient(90deg, #be2929 60%, #e74848 100%);
+            box-shadow: 0 6px 20px rgba(230, 72, 72, 0.15);
+        }
+        @media (max-width: 500px) {
+            .container {
+                max-width: 98vw;
+                padding: 22px 6vw 18px 6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/top-nav :: topNav}"></div>
+<div class="container">
+    <div class="home-title">환영합니다!</div>
+    <div class="nickname" th:text="'사용자 닉네임: ' + ${nickname}">사용자 닉네임: 구본엽</div>
+    <div class="menu">
+        <a th:href="@{/mypage/my_info}">나의 정보 보기</a>
+        <a th:href="@{/mypage/comments}">나의 댓글 목록</a>
+        <a th:href="@{/mypage/reviews}">나의 리뷰 목록</a>
+    </div>
+    <form th:action="@{/logout}" method="post" style="width:100%;">
+        <button type="submit" class="logout-btn">로그아웃</button>
+    </form>
+</div>
+</body>
+</html>

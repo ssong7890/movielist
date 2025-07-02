@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>온보딩 - 영화 선택</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 2.5em;
+        }
+
+        /* 1줄에 7개씩 Grid 세팅 */
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 16px;
+            padding: 0 40px;
+        }
+        .card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 4px;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(20,20,20,0.5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .card:hover .overlay {
+            opacity: 1;
+        }
+        .badge {
+            position: absolute;
+            top: 8px; left: 8px;
+            background: #e50914;
+            color: #fff;
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        #completeButton {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        #completeButton.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/top-nav :: topNav}"></div>
+<h1>당신이 좋아하는 영화 3가지를 선택해주세요</h1>
+
+<!-- 여기에 카드들이 7개씩 채워지고 스크롤 내리면 더 로드됩니다 -->
+<div id="grid"></div>
+
+<button id="completeButton">선호 저장 및 추천 보기</button>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const user_id     = [[${user_id}]];
+    const grid        = document.getElementById('grid');
+    const completeBtn = document.getElementById('completeButton');
+
+    const MAX_ITEMS   = 100;  // 최대 100개
+    const BATCH_SIZE  = 21;    // 한 번에 7개씩 로드
+    let candidates    = [];
+    let currentIndex  = 0;
+    let selected      = [];
+
+    // 1) 후보 영화 가져오기 → 최대 100개 잘라서 저장
+    fetch(`/api/recommendations/onboarding/movies`)
+        .then(res => res.json())
+        .then(list => {
+            candidates = list.slice(0, MAX_ITEMS);
+            loadNextBatch();
+            window.addEventListener('scroll', onScrollLoad);
+        })
+        .catch(e => console.error('후보 영화 로드 실패:', e));
+
+    // 2) 다음 배치를 Grid에 렌더
+    function loadNextBatch() {
+        const slice = candidates.slice(currentIndex, currentIndex + BATCH_SIZE);
+        slice.forEach(m => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.id = m.movieId;
+            card.innerHTML = `
+          <img src="${m.posterUrl}" alt="${m.title}">
+          <div class="overlay">+ 선택</div>
+        `;
+            card.addEventListener('click', () => toggleSelect(m, card));
+            grid.appendChild(card);
+        });
+        currentIndex += slice.length;
+    }
+
+    // 3) 무한 스크롤 처리
+    function onScrollLoad() {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+            if (currentIndex < candidates.length) {
+                loadNextBatch();
+            } else {
+                window.removeEventListener('scroll', onScrollLoad);
+            }
+        }
+    }
+
+    // 4) 카드 선택/해제 토글
+    function toggleSelect(movie, cardEl) {
+        const idx = selected.findIndex(m => m.movieId === movie.movieId);
+        if (idx >= 0) {
+            selected.splice(idx, 1);
+            cardEl.querySelector('.badge')?.remove();
+        } else if (selected.length < 3) {
+            selected.push(movie);
+            const badge = document.createElement('div');
+            badge.className = 'badge';
+            badge.textContent = selected.length;
+            cardEl.appendChild(badge);
+        }
+        updateCompleteBtn();
+    }
+
+    // 5) 완료 버튼 활성화 상태 업데이트
+    function updateCompleteBtn() {
+        if (selected.length === 3) {
+            completeBtn.classList.add('enabled');
+        } else {
+            completeBtn.classList.remove('enabled');
+        }
+    }
+
+    // 6) 최종 저장 & 추천 페이지 이동
+    completeBtn.addEventListener('click', () => {
+        if (selected.length !== 3) return;
+        const movie_ids = selected.map(m => m.movieId);
+        fetch(`/api/recommendations/onboarding/complete/${user_id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ movie_ids })
+        })
+            .then(res => {
+                if (res.ok) location.href = '/recommend';
+                else throw new Error('저장 실패');
+            })
+            .catch(e => alert('선호 저장 중 오류: ' + e));
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

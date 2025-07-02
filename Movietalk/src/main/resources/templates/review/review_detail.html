@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>리뷰 상세 | MovieTalk</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f7f9f9;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+    .movie-info {
+      display: flex;
+      align-items: flex-start;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+    }
+    .poster {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      margin-right: 1rem;
+    }
+    .movie-meta h2 {
+      margin: 0 0 0.5rem;
+      color: #2f855a;
+    }
+    .movie-meta p {
+      margin: 0.2rem 0;
+      color: #4a5568;
+    }
+    .review-content {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .review-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .action-btn {
+      background-color: #68d391;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+    .action-btn:hover {
+      background-color: #48bb78;
+    }
+    .comment-section {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- 영화 정보 + 포스터 -->
+  <div class="movie-info">
+    <img th:src="${review.moviePosterUrl}" alt="포스터" class="poster"/>
+    <div class="movie-meta">
+      <h2 th:text="${review.movieTitle}">영화 제목</h2>
+      <p th:text="'작성자: ' + ${review.author}">작성자</p>
+      <p th:text="'작성일: ' + ${#temporals.format(review.createdAt,'yyyy-MM-dd HH:mm')}">작성일</p>
+    </div>
+  </div>
+
+  <!-- 리뷰 내용 -->
+  <div class="review-content" th:text="${review.content}">리뷰 본문</div>
+
+  <!-- 좋아요 / 싫어요 / 신고 -->
+  <div class="review-actions">
+    <form th:action="@{/reviews/{id}/like(id=${review.id})}" method="post">
+      <button class="action-btn">👍 좋아요</button>
+    </form>
+    <form th:action="@{/reviews/{id}/dislike(id=${review.id})}" method="post">
+      <button class="action-btn">👎 싫어요</button>
+    </form>
+    <form th:action="@{/reviews/{id}/report(id=${review.id})}" method="post">
+      <button class="action-btn">🚨 신고</button>
+    </form>
+  </div>
+
+  <!-- 수정 / 삭제 버튼 (작성자만 보임) -->
+  <div th:if="${currentUserId != null and currentUserId == reviewAuthorId}" class="review-actions">
+    <a th:href="@{/reviews/edit/{id}(id=${review.id})}">
+      <button class="action-btn" style="background-color: #f0ad4e;">✏️ 수정</button>
+    </a>
+    <form th:action="@{/reviews/delete/{id}(id=${review.id})}" method="post"
+          style="display: inline;"
+          onsubmit="return confirm('정말 삭제하시겠습니까?');">
+      <button type="submit" class="action-btn" style="background-color: #d9534f;">🗑 삭제</button>
+    </form>
+  </div>
+
+  <!-- 댓글 섹션(fragment) 삽입 -->
+  <div th:replace="~{review/commentSection :: commentSection(${commentList}, ${review.id}, ${currentUserId}, ${reviewAuthorId})}"
+       class="comment-section">
+  </div>
+</div>
+
+<!-- JS 변수 선언 -->
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  const reviewId       = /*[[${review.id}]]*/ 0;
+  const currentUserId  = /*[[${currentUserId}]]*/ 0;
+  const reviewAuthorId = /*[[${reviewAuthorId}]]*/ 0;
+  /*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea684c9a-278d-41bc-9af9-300c951d4456" name="Changes" comment="실행됨." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="feature/1.6" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ssong7890&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ssong7890/movielist.git&quot;,
+    &quot;accountId&quot;: &quot;842b181b-56d9-4155-835f-e947a004f285&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2z4zjgp4cm4g9SGLLgx2xZn88Ce" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MovietalkApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Movietalkapplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/1.6&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/song/Desktop/my-project01/Movietalk&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk/movie" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk/movie/repository" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk/movie/dto" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates/movie" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sec.movietalk.movie.service" />
+      <recent name="com.sec.movietalk.movie.repository" />
+      <recent name="com.sec.movietalk.movie.controller" />
+      <recent name="com.sec.movietalk.movie.dto" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Movietalkapplication" type="Application" factoryName="Application">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/.env" />
+      </option>
+      <option name="MAIN_CLASS_NAME" value="com.sec.movietalk.MovietalkApplication" />
+      <module name="Movietalk" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea684c9a-278d-41bc-9af9-300c951d4456" name="Changes" comment="" />
+      <created>1751005270034</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751005270034</updated>
+    </task>
+    <task id="LOCAL-00001" summary="push">
+      <option name="closed" value="true" />
+      <created>1751008887973</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751008887973</updated>
+    </task>
+    <task id="LOCAL-00002" summary="push">
+      <option name="closed" value="true" />
+      <created>1751009221124</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751009221124</updated>
+    </task>
+    <task id="LOCAL-00003" summary="push">
+      <option name="closed" value="true" />
+      <created>1751009332866</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1751009332866</updated>
+    </task>
+    <task id="LOCAL-00004" summary="push">
+      <option name="closed" value="true" />
+      <created>1751009734592</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1751009734592</updated>
+    </task>
+    <task id="LOCAL-00005" summary="영화 상세 페이지 틀 작성 완료">
+      <option name="closed" value="true" />
+      <created>1751180296042</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751180296042</updated>
+    </task>
+    <task id="LOCAL-00006" summary="영화 검색 기능 구현 및 상세 페이지 내용 추가">
+      <option name="closed" value="true" />
+      <created>1751352819511</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751352819511</updated>
+    </task>
+    <task id="LOCAL-00007" summary="CastMember.java 추가">
+      <option name="closed" value="true" />
+      <created>1751353573661</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751353573661</updated>
+    </task>
+    <task id="LOCAL-00008" summary="movie_cache 오류남.">
+      <option name="closed" value="true" />
+      <created>1751439202917</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1751439202917</updated>
+    </task>
+    <task id="LOCAL-00009" summary="실행됨.">
+      <option name="closed" value="true" />
+      <created>1751468570711</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1751468570711</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feature/movie-detail" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="123" />
+    <MESSAGE value="push" />
+    <MESSAGE value="상세 페이지 틀 작성 완료" />
+    <MESSAGE value="영화 상세 페이지 틀 작성 완료" />
+    <MESSAGE value="영화 검색 기능 구현 및 상세 페이지 내용 추가" />
+    <MESSAGE value="CastMember.java 추가" />
+    <MESSAGE value="movie_cache 오류남." />
+    <MESSAGE value="실행됨." />
+    <option name="LAST_COMMIT_MESSAGE" value="실행됨." />
+  </component>
+</project>

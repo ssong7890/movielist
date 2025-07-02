@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내 정보</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .info-container {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+            padding: 38px 36px 28px 36px;
+            min-width: 340px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .info-title {
+            font-size: 2em;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 28px;
+            letter-spacing: -1px;
+        }
+        .info-list {
+            width: 100%;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 0;
+            font-size: 1.08em;
+        }
+        .info-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        .info-value {
+            color: #222;
+            font-weight: bold;
+        }
+        .info-line {
+            border: none;
+            border-bottom: 1px solid #ececec;
+            margin: 0;
+        }
+        .back-btn {
+            margin-top: 30px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #388e3c;
+        }
+    </style>
+</head>
+<body>
+<div class="info-container">
+    <div class="info-title">내 정보</div>
+    <div class="info-list">
+        <div class="info-item">
+            <span class="info-label">닉네임</span>
+            <span class="info-value" th:text="${nickname}"></span>
+        </div>
+        <hr class="info-line">
+        <div class="info-item">
+            <span class="info-label">이메일</span>
+            <span class="info-value" th:text="${email}"></span>
+        </div>
+        <hr class="info-line">
+        <div class="info-item">
+            <span class="info-label">댓글 수</span>
+            <span class="info-value" th:text="${commentCnt}"></span>
+        </div>
+        <hr class="info-line">
+        <div class="info-item">
+            <span class="info-label">리뷰 수</span>
+            <span class="info-value" th:text="${reviewCnt}"></span>
+        </div>
+    </div>
+    <button class="back-btn" onclick="window.history.back()">이전으로</button>
+</div>
+</body>
+</html>

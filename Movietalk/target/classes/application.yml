@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    include: oauth
+  config:
+    import:
+      - optional:file:.env
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # 또는 create, create-drop, none
+    show-sql: true # JPA가 생성하는 SQL을 콘솔에 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL 포맷팅
+
+tmdb:
+  api-key: ${TMDB_API_KEY}
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG # 실행되는 SQL 쿼리 로깅
+        type:
+          descriptor:
+            sql: TRACE # SQL 파라미터 로깅

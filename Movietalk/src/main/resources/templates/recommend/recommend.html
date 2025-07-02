@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>영화 추천</title>
+
+    <style>
+        /* Netflix‑like dark theme */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        h2 {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 2.2em;
+        }
+
+        /* 카드 1줄 7개 그리드 */
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 16px;
+            padding: 0 40px 60px;
+        }
+        .card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 4px;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 20, 20, 0.35);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 1.1em;
+        }
+        .card:hover .overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 상단 네비 -->
+<div th:replace="fragments/top-nav :: topNav"></div>
+
+<h2>🎬 추천 영화</h2>
+<div id="grid"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const user_id = [[${user_id}]];
+    const grid    = document.getElementById('grid');
+    const IMG     = 'https://image.tmdb.org/t/p/w300';
+
+    // 즐겨찾기 수가 부족하면 온보딩으로 리디렉션
+    fetch(`/api/recommendations/check/${user_id}`)
+        .then(r => r.json())
+        .then(({ has_favorite }) => {
+            if (!has_favorite) {
+                location.href = '/onboarding';
+                return Promise.reject('onboarding');
+            }
+            return fetch(`/api/recommendations/${user_id}`);
+        })
+        .then(r => r.json())
+        .then(list => {
+            if (!list || list.length === 0) {
+                grid.innerHTML = '<p style="color:#aaa;">추천할 영화가 없습니다.</p>';
+                return;
+            }
+
+            list.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick   = () => location.href = `/movies/${m.movie_id}`; // snake_case 그대로
+
+                card.innerHTML = `
+            <img src="${IMG}${m.poster_path}" alt="${m.title}">
+            <div class="overlay">상세 보기</div>
+          `;
+                grid.appendChild(card);
+            });
+        })
+        .catch(e => {
+            if (e !== 'onboarding') {
+                grid.innerHTML = '<p style="color:#aaa;">추천 호출 실패: ' + e + '</p>';
+            }
+        });
+    /*]]>*/
+</script>
+</body>
+</html>
