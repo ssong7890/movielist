@@ -6,76 +6,212 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f7f9f9;
+      background: #f7f9f9;
       margin: 0;
-      padding: 2rem;
+      padding: 0;
     }
+
     .container {
       max-width: 900px;
-      margin: auto;
+      margin: 0 auto;
+      padding: 2rem;  /* your original breathing room */
     }
-    .movie-info {
+
+    .movie-info-card {
       display: flex;
       align-items: flex-start;
-      background-color: white;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-bottom: 1.5rem;
+      background: #fff;
+      padding: 1.6rem 1.9rem;
+      border-radius: 18px;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.09);
+      margin-bottom: 2.1rem;
     }
     .poster {
-      width: 150px;
-      height: auto;
-      border-radius: 8px;
-      margin-right: 1rem;
+      width: 180px;
+      min-width: 130px;
+      border-radius: 13px;
+      margin-right: 2.4rem;
+      box-shadow: 0 2px 14px #e7eaf2;
+      object-fit: cover;
+      transition: box-shadow 0.2s;
     }
+    .poster:hover {
+      box-shadow: 0 6px 18px #b8bbc8;
+    }
+    .movie-meta { flex: 1; }
     .movie-meta h2 {
-      margin: 0 0 0.5rem;
-      color: #2f855a;
+      margin-bottom: 0.6rem;
+      font-size: 1.8rem;
+      color: #239d3a;
+      font-weight: bold;
     }
-    .movie-meta p {
-      margin: 0.2rem 0;
-      color: #4a5568;
+    .meta-list {
+      font-size: 1.12rem;
+      color: #333;
+      margin-bottom: 1.05rem;
     }
+    .meta-list div {
+      margin-bottom: 0.33rem;
+    }
+    .movie-overview {
+      background: #f5f7fa;
+      padding: 1rem 1.1rem;
+      border-radius: 8px;
+      margin: 1.12rem 0;
+      color: #232b37;
+    }
+    .movie-cast {
+      margin-top: 0.85rem;
+      font-size: 1.06rem;
+      color: #556;
+    }
+
     .review-content {
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      margin-bottom: 1.5rem;
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: 13px;
+      margin-bottom: 1.7rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-size: 1.13rem;
+      line-height: 1.53;
     }
-    .review-actions {
+
+    .button-group {
       display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
     }
     .action-btn {
-      background-color: #68d391;
+      padding: 0.3rem 0.7rem;
       border: none;
-      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.97rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+    .action-btn.like    { background: #48bb78; }
+    .action-btn.dislike { background: #f56565; }
+    .action-btn.report  { background: #ed8936; }
+    .action-btn.edit    { background: #ecc94b; color: #333; }
+    .action-btn.delete  { background: #e53e3e; }
+    .action-btn.back    { background: #3182ce; margin-bottom: 1rem; }
+    .action-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 1rem;
       border-radius: 6px;
-      color: white;
+      width: 90%;
+      max-width: 360px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .modal textarea {
+      width: 100%;
+      height: 80px;
+      margin-bottom: 0.4rem;
+      padding: 0.4rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    .close-btn {
+      float: right;
+      font-size: 1.2rem;
       cursor: pointer;
     }
-    .action-btn:hover {
-      background-color: #48bb78;
-    }
+
     .comment-section {
-      background-color: white;
+      background: #fff;
       padding: 1.5rem;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       margin-top: 1.5rem;
     }
+    .flash-error {
+      color: #c53030;
+      background: #fff5f5;
+      padding: 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    @media (max-width: 700px) {
+      .movie-info-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.1rem 0.6rem;
+      }
+      .poster {
+        margin-bottom: 1.3rem;
+        width: 58vw;
+        max-width: 230px;
+      }
+      .movie-meta { width: 100%; }
+    }
   </style>
 </head>
 <body>
+<!-- 상단 네비게이션 (이제 브라우저 최상단에 딱 붙습니다) -->
+<div th:replace="fragments/top-nav :: topNav"></div>
+
 <div class="container">
-  <!-- 영화 정보 + 포스터 -->
-  <div class="movie-info">
+  <!-- 뒤로 가기 -->
+  <a th:href="@{/reviews}" class="action-btn back">← 리뷰 목록</a>
+
+  <!-- 플래시 에러 메시지 -->
+  <div th:if="${reportError}" class="flash-error">
+    <p th:text="${reportError}">이미 신고한 리뷰입니다.</p>
+  </div>
+
+  <!-- 영화 정보 카드 -->
+  <div class="movie-info-card">
     <img th:src="${review.moviePosterUrl}" alt="포스터" class="poster"/>
     <div class="movie-meta">
       <h2 th:text="${review.movieTitle}">영화 제목</h2>
+      <div class="meta-list">
+        <div><b>개봉일:</b> <span th:text="${movie.releaseDate}"></span></div>
+        <div><b>러닝타임:</b> <span th:text="${movie.runtime}"></span>분</div>
+        <div>
+          <b>장르:</b>
+          <span th:each="g,stat : ${movie.genres}">
+              <span th:text="${g.name}"></span><span th:if="${!stat.last}">, </span>
+            </span>
+        </div>
+        <div>
+          <b>국가:</b>
+          <span th:each="c,stat : ${movie.productionCountries}">
+              <span th:text="${c.name}"></span><span th:if="${!stat.last}">, </span>
+            </span>
+        </div>
+      </div>
+      <div class="movie-overview"
+           th:if="${movie.overview}"
+           th:text="${movie.overview}">영화 개요</div>
+      <div class="movie-cast">
+        <b>출연진:</b>
+        <span th:each="c,stat : ${movie.cast}">
+            <span th:if="${stat.index < 8}" th:text="${c.name}"></span>
+            <span th:if="${stat.index < 7 && stat.index < movie.cast.size()-1}">, </span>
+          </span>
+        <span th:if="${movie.cast.size()>8}">
+            ...<span style="font-size:0.95em;">(외 <span th:text="${movie.cast.size()-8}"></span>명)</span>
+          </span>
+      </div>
       <p th:text="'작성자: ' + ${review.author}">작성자</p>
       <p th:text="'작성일: ' + ${#temporals.format(review.createdAt,'yyyy-MM-dd HH:mm')}">작성일</p>
     </div>
@@ -84,44 +220,62 @@
   <!-- 리뷰 내용 -->
   <div class="review-content" th:text="${review.content}">리뷰 본문</div>
 
-  <!-- 좋아요 / 싫어요 / 신고 -->
-  <div class="review-actions">
-    <form th:action="@{/reviews/{id}/like(id=${review.id})}" method="post">
-      <button class="action-btn">👍 좋아요</button>
+  <!-- 액션 버튼 그룹 -->
+  <div class="button-group">
+    <form th:action="@{/reviews/{id}/reactions(id=${review.id})}" method="post">
+      <input type="hidden" name="reactionType" value="like"/>
+      <button type="submit"
+              class="action-btn like"
+              th:disabled="${userReaction == T(com.sec.movietalk.common.domain.review.ReviewReactions.ReactionType).dislike}">
+        👍 좋아요 (<span th:text="${review.likeCount}">0</span>)
+      </button>
     </form>
-    <form th:action="@{/reviews/{id}/dislike(id=${review.id})}" method="post">
-      <button class="action-btn">👎 싫어요</button>
+    <form th:action="@{/reviews/{id}/reactions(id=${review.id})}" method="post">
+      <input type="hidden" name="reactionType" value="dislike"/>
+      <button type="submit"
+              class="action-btn dislike"
+              th:disabled="${userReaction == T(com.sec.movietalk.common.domain.review.ReviewReactions.ReactionType).like}">
+        👎 싫어요 (<span th:text="${review.dislikeCount}">0</span>)
+      </button>
     </form>
-    <form th:action="@{/reviews/{id}/report(id=${review.id})}" method="post">
-      <button class="action-btn">🚨 신고</button>
-    </form>
+    <button id="openReportModal" class="action-btn report">🚨 신고</button>
+
+    <th:block th:if="${currentUserId != null and currentUserId == reviewAuthorId}">
+      <a th:href="@{/reviews/edit/{id}(id=${review.id})}" class="action-btn edit">✏️ 수정</a>
+      <form th:action="@{/reviews/delete/{reviewId}(reviewId=${review.id})}"
+            method="post"
+            onsubmit="return confirm('정말 삭제하시겠습니까?');"
+            style="display:inline;">
+        <button type="submit" class="action-btn delete">🗑 삭제</button>
+      </form>
+    </th:block>
   </div>
 
-  <!-- 수정 / 삭제 버튼 (작성자만 보임) -->
-  <div th:if="${currentUserId != null and currentUserId == reviewAuthorId}" class="review-actions">
-    <a th:href="@{/reviews/edit/{id}(id=${review.id})}">
-      <button class="action-btn" style="background-color: #f0ad4e;">✏️ 수정</button>
-    </a>
-    <form th:action="@{/reviews/delete/{id}(id=${review.id})}" method="post"
-          style="display: inline;"
-          onsubmit="return confirm('정말 삭제하시겠습니까?');">
-      <button type="submit" class="action-btn" style="background-color: #d9534f;">🗑 삭제</button>
-    </form>
+  <!-- 신고 모달 -->
+  <div id="reportModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <form th:action="@{/reviews/{id}/reports(id=${review.id})}" method="post">
+        <textarea name="reason" placeholder="신고 사유를 입력하세요"></textarea>
+        <button type="submit" class="action-btn report">🚨 제출</button>
+      </form>
+    </div>
   </div>
 
-  <!-- 댓글 섹션(fragment) 삽입 -->
-  <div th:replace="~{review/commentSection :: commentSection(${commentList}, ${review.id}, ${currentUserId}, ${reviewAuthorId})}"
-       class="comment-section">
-  </div>
+  <!-- 댓글 섹션 -->
+  <div th:replace="~{review/commentSection :: commentSection(
+                              ${commentList},
+                              ${review.id},
+                              ${currentUserId},
+                              ${reviewAuthorId})}"
+       class="comment-section"></div>
 </div>
 
-<!-- JS 변수 선언 -->
-<script th:inline="javascript">
-  /*<![CDATA[*/
-  const reviewId       = /*[[${review.id}]]*/ 0;
-  const currentUserId  = /*[[${currentUserId}]]*/ 0;
-  const reviewAuthorId = /*[[${reviewAuthorId}]]*/ 0;
-  /*]]>*/
+<script>
+  const modal = document.getElementById('reportModal');
+  document.getElementById('openReportModal').onclick = () => modal.style.display = 'flex';
+  document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
+  window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
 </script>
 </body>
 </html>

@@ -56,6 +56,15 @@
         .btn-search:hover {
             background-color: #0056b3;
         }
+
+        .movie-title a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .movie-title a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -72,9 +81,13 @@
 
     <div th:if="${!#lists.isEmpty(filmography)}">
         <div th:each="movie : ${filmography}" class="movie-item">
-            <img th:src="'https://image.tmdb.org/t/p/w200' + ${movie.posterPath}" alt="포스터" class="poster">
+            <a th:href="@{|/movies/${movie.id}|}">
+                <img class="poster" th:src="${movie.posterPath != null} ? @{'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}} : @{'/images/no-image.jpg'}" alt="포스터"/>
+            </a>
             <div class="movie-info">
-                <div class="movie-title" th:text="${movie.title}">영화 제목</div>
+                <div class="movie-title">
+                    <a th:href="@{|/movies/${movie.id}|}" th:text="${movie.title}">영화 제목</a>
+                </div>
                 <div class="movie-meta">
                     <strong>출연:</strong> <span th:text="${movie.character}">역할</span> |
                     <strong>개봉일:</strong> <span th:text="${movie.releaseDate}">개봉일</span> |

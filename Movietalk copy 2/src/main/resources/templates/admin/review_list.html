@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 리뷰 목록</title>
+</head>
+<body>
+<div th:replace="~{admin/nav.html :: topNav}"></div>
+
+<h2>리뷰 목록</h2>
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>회원번호</th>
+        <th>닉네임</th>
+        <th>리뷰 내용</th>
+        <th>좋아요 수</th>
+        <th>싫어요 수</th>
+        <th>영화 번호</th>
+        <th>작성 시간</th>
+        <th>삭제하기</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="review : ${pageData.content}">
+        <td th:text="${review.userId}"></td>
+        <td th:text="${review.user.nickname}"></td>
+        <td>
+            <a th:href="@{/reviews/{id}(id=${review.reviewId})}" target="_blank" th:text="${review.content}"></a>
+        </td>
+        <td th:text="${review.likeCount}"></td>
+        <td th:text="${review.dislikeCount}"></td>
+        <td th:text="${review.movieId}"></td>
+        <td th:text="${review.createdAt}"></td>
+        <td>
+            <form th:action="@{/admin/reviews/{id}(id=${review.reviewId})}"
+                  method="post"
+                  onsubmit="return confirm('이 리뷰를 정말 삭제하시겠습니까?');">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit">삭제</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 페이징 -->
+<div style="margin-top:20px;">
+    <span th:each="i : ${#numbers.sequence(0, pageData.totalPages - 1)}">
+      <a th:href="@{/admin/reviews(page=${i}, size=${pageData.size})}"
+         th:text="${i + 1}"
+         th:classappend="${i == pageData.number} ? 'active' : ''">1</a>
+      <span th:if="${i < pageData.totalPages - 1}"> | </span>
+    </span>
+</div>
+</body>
+</html>

@@ -70,7 +70,7 @@
                     ? detail.overview : '줄거리 정보가 없습니다.'}"></p>
             </div>
 
-            <!-- 🎭 출연진 정보 (줄거리 바로 아래로 이동) -->
+            <!-- 🎭 출연진 정보 -->
             <div class="mt-4">
                 <h5 class="mb-2">출연진</h5>
                 <p>
@@ -85,11 +85,29 @@
 
     <!-- 🔘 버튼 영역 -->
     <div class="d-flex justify-content-center mt-5 mb-5 gap-3">
+        <!-- 🔙 돌아가기 버튼 먼저 -->
+        <th:block th:if="${from == 'search'}">
+            <a th:href="@{/movies/search(keyword=${keyword}, page=${page})}"
+               class="btn btn-secondary">🔍 검색 결과로 돌아가기</a>
+        </th:block>
+
+        <th:block th:if="${from == 'list'}">
+            <a th:href="@{/movies(page=${page})}"
+               class="btn btn-secondary">목록으로 돌아가기</a>
+        </th:block>
+
+        <th:block th:if="${from == null}">
+            <a th:href="@{/movies}" class="btn btn-secondary">⬅ 목록으로</a>
+        </th:block>
+
+        <!-- ✏️ 리뷰 작성 버튼 -->
         <a th:if="${detail != null}"
            th:href="@{/reviews/new(movieId=${movie != null ? movie.movieId : detail.tmdbId})}"
            class="btn btn-primary">리뷰 작성하기</a>
 
-        <a th:href="@{/movies}" class="btn btn-secondary">목록으로 돌아가기</a>
+        <!-- 리뷰 보기 버튼 -->
+        <a th:href="@{/reviews/search(keyword=${movie != null ? movie.title : detail.title})}"
+           class="btn btn-outline-primary">리뷰 보기</a>
     </div>
 </div>
 

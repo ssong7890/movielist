@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 댓글 목록</title>
+</head>
+<body>
+<div th:replace="~{admin/nav.html :: topNav}"></div>
+
+<h2>댓글 신고 목록</h2>
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>신고자 회원번호</th>
+        <th>신고자</th>
+        <th>사유</th>
+        <th>댓글 내용</th>
+        <th>신고 시간</th>
+        <th>검토</th>
+        <th>신고 처리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="commentreport : ${pageData.content}">
+        <td th:text="${commentreport.user.userId}"></td>
+        <td th:text="${commentreport.user.nickname}"></td>
+        <td th:text="${commentreport.reason}"></td>
+        <td th:text="${commentreport.comment.content}"></td>
+        <td th:text="${commentreport.createdAt}"></td>
+        <td>
+            <a th:href="@{/reviews/{id}(id=${commentreport.comment.review.reviewId})}" target="_blank" >리뷰 보기</a>
+        </td>
+        <td>
+            <form th:action="@{/admin/comments/{id}(id=${commentreport.comment.commentId})}"
+                  method="post"
+                  onsubmit="return confirm('이 리뷰를 정말 삭제하시겠습니까?');">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit">댓글 삭제</button>
+            </form>
+            <form th:action="@{/admin/comment_reports/{id}(id=${commentreport.commentReportsId})}"
+                  method="post"
+                  onsubmit="return confirm('이 신고를 정말 반려하시겠습니까?');">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit">신고 반려</button>
+            </form>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 페이징 -->
+<div style="margin-top:20px;">
+    <span th:each="i : ${#numbers.sequence(0, pageData.totalPages - 1)}">
+      <a th:href="@{/admin/commentreports(page=${i}, size=${pageData.size})}"
+         th:text="${i + 1}"
+         th:classappend="${i == pageData.number} ? 'active' : ''">1</a>
+      <span th:if="${i < pageData.totalPages - 1}"> | </span>
+    </span>
+</div>
+</body>
+</html>

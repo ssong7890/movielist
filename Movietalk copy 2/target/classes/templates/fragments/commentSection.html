@@ -1,0 +1,23 @@
+<!-- templates/fragments/commentSection.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--
+  commentSection(fragment parameters):
+    - commentList : 댓글 DTO 리스트
+    - reviewId    : 현재 리뷰 ID (댓글 등록 폼 액션에 필요)
+-->
+<div th:fragment="commentSection (commentList, reviewId)">
+    <h3>댓글</h3>
+    <div th:each="comment : ${commentList}" class="comment">
+        <p><strong th:text="${comment.author}">작성자</strong></p>
+        <p th:text="${comment.content}">댓글 내용</p>
+        <p th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">작성일</p>
+    </div>
+    <form class="comment-form"
+          th:action="@{'/review/' + ${reviewId} + '/comment'}"
+          method="post">
+        <textarea name="content" rows="2" placeholder="댓글을 입력하세요..."></textarea>
+        <button type="submit">등록</button>
+    </form>
+</div>
+</html>

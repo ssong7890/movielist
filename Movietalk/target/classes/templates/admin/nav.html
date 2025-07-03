@@ -1,0 +1,18 @@
+<!-- templates/fragments/top-nav.html -->
+<nav th:fragment="topNav" style="background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.05); padding: 0 40px;">
+  <div style="display: flex; align-items: center; height:60px; max-width: 1200px; margin: 0 auto;">
+    <div style="font-size:1.6em; font-weight:bold; color:#4CAF50; letter-spacing:1px;">
+      <a style="text-decoration:none; color:inherit;">관리자 페이지</a>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display: flex; gap: 25px;">
+      <a th:href="@{/admin/home}" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">홈</a>
+      <a th:href="@{/admin/users}" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">회원 정보</a>
+      <a th:href="@{/admin/reviews}" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">리뷰 정보</a>
+      <a th:href="@{/admin/comments}" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">댓글 정보</a>
+      <a th:href="@{/admin/review_reports}" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">리뷰 신고 내역</a>
+      <a th:href="@{/admin/comment_reports}" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">댓글 신고 내역</a>
+
+    </div>
+  </div>
+</nav>

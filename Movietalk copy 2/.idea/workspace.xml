@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea684c9a-278d-41bc-9af9-300c951d4456" name="Changes" comment="movie_views 데이터 입력 구현">
+      <change beforePath="$PROJECT_DIR$/../Movietalk/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/controller/ActorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/controller/ActorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/dto/ActorCommentRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/dto/FilmographyDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/dto/FilmographyDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/external/TmdbMovieCreditsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/external/TmdbMovieCreditsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/external/TmdbService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/external/TmdbService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/repository/ActorCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/repository/ActorCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/service/ActorCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/actor/service/ActorCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/comment/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/comment/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/comment/CommentReactions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/comment/CommentReactions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/comment/CommentReports.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/comment/CommentReports.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/movie/MovieCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/movie/MovieCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/review/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/review/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/domain/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/util/UserUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/common/util/UserUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/controller/MovieController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/dto/MovieSearchResultDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/dto/MovieSearchResultDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/repository/MovieViewDailyRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/service/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/service/MovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/service/MovieViewDailyService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/service/MovieViewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/movie/service/MovieViewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/controller/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/dto/ReviewCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/dto/ReviewCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/dto/ReviewListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/dto/ReviewListResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/dto/ReviewUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/dto/ReviewUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/CommentReactionsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/CommentReactionsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/CommentReportsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/CommentReportsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/review/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/userinfo/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/userinfo/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/userinfo/security/CurrentUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/userinfo/security/CurrentUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/userinfo/service/CustomOAuth2UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/java/com/sec/movietalk/userinfo/service/CustomOAuth2UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/actor/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/actor/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/actor/filmography.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/actor/filmography.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/fragments/top-nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/fragments/top-nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/movie/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/movie/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/movie/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/movie/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/src/main/resources/templates/review/review_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/controller/ActorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/controller/ActorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/dto/FilmographyDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/dto/FilmographyDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/external/TmdbMovieCreditsResponse$Cast.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/external/TmdbMovieCreditsResponse$Cast.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/external/TmdbService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/external/TmdbService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/repository/ActorCommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/repository/ActorCommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/service/ActorCommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/actor/service/ActorCommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/Comment$CommentBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/Comment$CommentBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReactions$ReactionType.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReactions$ReactionType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReactions.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReactions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReports$CommentReportsBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReports$CommentReportsBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReports.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/comment/CommentReports.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/movie/MovieCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/movie/MovieCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/review/Review$ReviewBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/review/Review$ReviewBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/review/Review.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/review/Review.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/domain/user/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/util/UserUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/common/util/UserUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/controller/MovieController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/controller/MovieController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/dto/MovieSearchResultDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/dto/MovieSearchResultDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/repository/MovieViewDailyRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/service/MovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/service/MovieService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/service/MovieViewDailyService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/service/MovieViewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/movie/service/MovieViewService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/controller/ReviewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/controller/ReviewController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/dto/ReviewCreateRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/dto/ReviewCreateRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/dto/ReviewUpdateRequest$ReviewUpdateRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/dto/ReviewUpdateRequest$ReviewUpdateRequestBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/dto/ReviewUpdateRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/dto/ReviewUpdateRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/CommentReactionsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/CommentReactionsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/CommentReportsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/CommentReportsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/CommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/service/CommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/service/ReviewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/review/service/ReviewService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/userinfo/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/userinfo/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/userinfo/security/CurrentUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/userinfo/security/CurrentUserDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/userinfo/service/CustomOAuth2UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/com/sec/movietalk/userinfo/service/CustomOAuth2UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/actor/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/actor/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/actor/filmography.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/actor/filmography.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/fragments/top-nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/fragments/top-nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/movie/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/movie/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/movie/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/movie/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Movietalk/target/classes/templates/review/review_list.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="feature/movie-detail" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ssong7890&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ssong7890/movielist.git&quot;,
+    &quot;accountId&quot;: &quot;842b181b-56d9-4155-835f-e947a004f285&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;yongzooda&quot;,
+    &quot;repository&quot;: &quot;MovieTalk&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2z4zjgp4cm4g9SGLLgx2xZn88Ce" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MovietalkApplication.executor": "Run",
+    "Application.Movietalkapplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/1.7",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/song/Desktop/my-project01/Movietalk copy 2/src/main/resources/templates/movie",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk/movie" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk/movie/repository" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk/movie/dto" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates/movie" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/sec/movietalk" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sec.movietalk.movie.service" />
+      <recent name="com.sec.movietalk.movie.controller" />
+      <recent name="com.sec.movietalk.movie.repository" />
+      <recent name="com.sec.movietalk.movie.dto" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Movietalkapplication" type="Application" factoryName="Application">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/.env" />
+      </option>
+      <option name="MAIN_CLASS_NAME" value="com.sec.movietalk.MovietalkApplication" />
+      <module name="Movietalk" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea684c9a-278d-41bc-9af9-300c951d4456" name="Changes" comment="" />
+      <created>1751005270034</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751005270034</updated>
+    </task>
+    <task id="LOCAL-00001" summary="push">
+      <option name="closed" value="true" />
+      <created>1751008887973</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1751008887973</updated>
+    </task>
+    <task id="LOCAL-00002" summary="push">
+      <option name="closed" value="true" />
+      <created>1751009221124</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751009221124</updated>
+    </task>
+    <task id="LOCAL-00003" summary="push">
+      <option name="closed" value="true" />
+      <created>1751009332866</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1751009332866</updated>
+    </task>
+    <task id="LOCAL-00004" summary="push">
+      <option name="closed" value="true" />
+      <created>1751009734592</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1751009734592</updated>
+    </task>
+    <task id="LOCAL-00005" summary="영화 상세 페이지 틀 작성 완료">
+      <option name="closed" value="true" />
+      <created>1751180296042</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751180296042</updated>
+    </task>
+    <task id="LOCAL-00006" summary="영화 검색 기능 구현 및 상세 페이지 내용 추가">
+      <option name="closed" value="true" />
+      <created>1751352819511</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751352819511</updated>
+    </task>
+    <task id="LOCAL-00007" summary="CastMember.java 추가">
+      <option name="closed" value="true" />
+      <created>1751353573661</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751353573661</updated>
+    </task>
+    <task id="LOCAL-00008" summary="movie_cache 오류남.">
+      <option name="closed" value="true" />
+      <created>1751439202917</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1751439202917</updated>
+    </task>
+    <task id="LOCAL-00009" summary="movie_views 데이터 입력 구현">
+      <option name="closed" value="true" />
+      <created>1751521472597</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1751521472597</updated>
+    </task>
+    <task id="LOCAL-00010" summary="movie_views 데이터 입력 구현">
+      <option name="closed" value="true" />
+      <created>1751521547836</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1751521547836</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feature/movie-detail" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="123" />
+    <MESSAGE value="push" />
+    <MESSAGE value="상세 페이지 틀 작성 완료" />
+    <MESSAGE value="영화 상세 페이지 틀 작성 완료" />
+    <MESSAGE value="영화 검색 기능 구현 및 상세 페이지 내용 추가" />
+    <MESSAGE value="CastMember.java 추가" />
+    <MESSAGE value="movie_cache 오류남." />
+    <MESSAGE value="movie_views 데이터 입력 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="movie_views 데이터 입력 구현" />
+  </component>
+</project>

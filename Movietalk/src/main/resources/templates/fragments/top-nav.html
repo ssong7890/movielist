@@ -12,6 +12,9 @@
       <a href="/popular" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">인기영화</a>
       <a href="/actors/search" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">배우정보</a>
       <a href="/mypage" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">마이페이지</a>
+      <th:block th:if="${role == 'ADMIN'}">
+      <a href="/admin/home" style="text-decoration:none; color:#333; font-size:1.07em; font-weight:500;">관리자 페이지</a>
+      </th:block>
     </div>
   </div>
 </nav>

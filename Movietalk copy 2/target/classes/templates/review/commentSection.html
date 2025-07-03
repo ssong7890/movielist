@@ -1,0 +1,249 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     th:fragment="commentSection(commentList, reviewId, currentUserId, reviewAuthorId)"
+     class="comment-section">
+
+    <!-- 스타일 추가 -->
+    <style>
+        /* 댓글 헤더: 작성자/날짜 폰트 크기 조정 */
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: #555;
+        }
+        .comment-header strong {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .comment-date {
+            font-size: 0.65rem;
+            color: #888;
+        }
+
+        /* 댓글 본문 */
+        .comment-body p {
+            font-size: 1rem;
+            margin: 0.4rem 0;
+        }
+
+        /* accepted 표시 */
+        .comment-accepted {
+            display: inline-block;
+            background-color: #38a169;
+            color: white;
+            padding: 0.15rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-top: 0.2rem;
+        }
+
+        /* 버튼들 크기 추가 축소 */
+        .comment-actions button {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.3rem;
+            margin-right: 0.2rem;
+            min-width: auto;
+        }
+        .comment-actions button:last-child {
+            margin-right: 0;
+        }
+
+        /* 대댓글 */
+        .comment.reply {
+            margin-left: 2rem;
+            background-color: #f9f9f9;
+            padding: 0.4rem;
+            border-radius: 4px;
+        }
+
+        /* 댓글 간 간격 */
+        .comment {
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <h3>댓글</h3>
+
+    <!-- 댓글 목록 -->
+    <div th:each="comment : ${commentList}"
+         class="comment"
+         th:attr="data-comment-id=${comment.id}">
+        <!-- 기본 댓글 -->
+        <div class="comment-header">
+            <strong th:text="${comment.authorName}">작성자</strong>
+            <span th:text="${#temporals.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"
+                  class="comment-date">작성일</span>
+        </div>
+        <div class="comment-body">
+            <p th:text="${comment.content}">댓글 내용</p>
+        </div>
+
+        <!-- 액션 버튼들 -->
+        <div class="comment-actions">
+            <button type="button" class="btn-like">👍 <span th:text="${comment.likeCnt}">0</span></button>
+            <button type="button" class="btn-dislike">👎 <span th:text="${comment.dislikeCnt}">0</span></button>
+            <button type="button" class="btn-report">🚨 신고</button>
+
+            <!-- 답글 버튼 -->
+            <button type="button" class="btn-reply" th:data-comment-id="${comment.id}">💬 답글</button>
+
+            <!-- 채택 버튼 -->
+            <button type="button" class="btn-adopt"
+                    th:if="${currentUserId == reviewAuthorId} and !${comment.accepted}"
+                    th:data-comment-id="${comment.id}">✔️ 채택</button>
+
+            <!-- 수정/삭제 -->
+            <span th:if="${currentUserId == comment.authorId}">
+                <button type="button" class="btn-edit" th:data-comment-id="${comment.id}">✏️ 수정</button>
+                <button type="button" class="btn-delete" th:data-comment-id="${comment.id}">🗑️ 삭제</button>
+            </span>
+        </div>
+
+        <!-- 채택됨 표시 -->
+        <div th:if="${comment.accepted}" class="comment-accepted">채택됨</div>
+
+        <!-- 대댓글 목록 -->
+        <div class="replies" th:if="${comment.replies}" th:each="reply : ${comment.replies}">
+            <div class="comment reply" th:attr="data-comment-id=${reply.id}">
+                <div class="comment-header">
+                    <strong th:text="${reply.authorName}"></strong>
+                    <span th:text="${#temporals.format(reply.createdAt,'yyyy-MM-dd HH:mm')}" class="comment-date"></span>
+                </div>
+                <div class="comment-body">
+                    <p th:text="${reply.content}"></p>
+                </div>
+                <div class="comment-actions">
+                    <button type="button" class="btn-like">👍 <span th:text="${reply.likeCnt}">0</span></button>
+                    <button type="button" class="btn-dislike">👎 <span th:text="${reply.dislikeCnt}">0</span></button>
+                    <button type="button" class="btn-report">🚨 신고</button>
+
+                    <!-- 채택 / 수정 / 삭제만 -->
+                    <button type="button" class="btn-adopt"
+                            th:if="${currentUserId == reviewAuthorId} and !${reply.accepted}"
+                            th:data-comment-id="${reply.id}">✔️ 채택</button>
+                    <span th:if="${currentUserId == reply.authorId}">
+                        <button type="button" class="btn-edit" th:data-comment-id="${reply.id}">✏️ 수정</button>
+                        <button type="button" class="btn-delete" th:data-comment-id="${reply.id}">🗑️ 삭제</button>
+                    </span>
+                </div>
+                <div th:if="${reply.accepted}" class="comment-accepted">채택됨</div>
+            </div>
+        </div>
+
+        <!-- 답글 입력 폼 (숨김) -->
+        <div class="reply-form-container"
+             th:attr="data-parent-id=${comment.id}"
+             style="display:none;">
+            <textarea rows="2" placeholder="답글을 입력하세요…" class="reply-text"></textarea>
+            <button type="button" class="btn-submit-reply">등록</button>
+        </div>
+    </div>
+
+    <!-- 새 댓글 작성 폼 -->
+    <form class="comment-form">
+        <textarea name="content" rows="2" placeholder="댓글을 입력하세요..." required></textarea>
+        <button type="submit">등록</button>
+    </form>
+
+    <!-- JS: reviewId, currentUserId, reviewAuthorId -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const reviewId       = [[${reviewId}]];
+        const currentUserId  = [[${currentUserId}]];
+        const reviewAuthorId = [[${reviewAuthorId}]];
+        /*]]>*/
+    </script>
+
+    <script>
+        // 공통 JSON 전송 함수 (POST)
+        function postJson(url, data) {
+            return fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        }
+
+        // 수정 전용 JSON 전송 함수 (PATCH)
+        function patchJson(url, data) {
+            return fetch(url, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        }
+
+        // 댓글/대댓글 이벤트 처리
+        document.querySelectorAll('.comment').forEach(el => {
+            const cid = el.dataset.commentId;
+
+            // 신고 버튼
+            el.querySelector('.btn-report')?.addEventListener('click', () => {
+                const reason = prompt('신고 사유를 입력하세요:');
+                if (!reason) return;
+                postJson(`/api/comments/${cid}/reports`, { reason })
+                    .then(res => res.ok ? location.reload() : res.text().then(msg => alert(msg)));
+            });
+
+            // 좋아요 / 싫어요 / 채택
+            el.querySelector('.btn-like')?.addEventListener('click', () =>
+                postJson(`/api/comments/${cid}/reactions`, { reactionType: 'like' }).then(() => location.reload())
+            );
+            el.querySelector('.btn-dislike')?.addEventListener('click', () =>
+                postJson(`/api/comments/${cid}/reactions`, { reactionType: 'dislike' }).then(() => location.reload())
+            );
+            el.querySelector('.btn-adopt')?.addEventListener('click', () =>
+                postJson(`/api/comments/${cid}/adopt`, {}).then(() => location.reload())
+            );
+
+            // 수정 버튼 (PATCH)
+            el.querySelector('.btn-edit')?.addEventListener('click', () => {
+                const text = prompt('수정할 내용을 입력하세요:');
+                if (!text) return;
+                patchJson(
+                    `/api/reviews/${reviewId}/comments/${cid}`,
+                    { commentId: cid, content: text }
+                ).then(() => location.reload());
+            });
+
+            // 삭제 버튼
+            el.querySelector('.btn-delete')?.addEventListener('click', () => {
+                if (!confirm('정말 삭제하시겠습니까?')) return;
+                fetch(`/api/reviews/${reviewId}/comments/${cid}`, { method: 'DELETE' })
+                    .then(r => r.ok ? location.reload() : alert('삭제에 실패했습니다.'));
+            });
+        });
+
+        // 답글 토글 및 전송 (최상위 댓글만)
+        document.querySelectorAll('.btn-reply').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pid = btn.dataset.commentId;
+                const form = document.querySelector(`.reply-form-container[data-parent-id="${pid}"]`);
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+        document.querySelectorAll('.btn-submit-reply').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const container = btn.closest('.reply-form-container');
+                const text = container.querySelector('.reply-text').value.trim();
+                if (!text) return alert('답글을 입력하세요.');
+                const pid = container.dataset.parentId;
+                postJson(`/api/reviews/${reviewId}/comments/${pid}/reply`, { reviewId, parentId: pid, content: text })
+                    .then(() => location.reload());
+            });
+        });
+
+        // 새 댓글 등록
+        document.querySelector('.comment-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const txt = e.target.querySelector('textarea[name="content"]').value.trim();
+            if (!txt) return;
+            postJson(`/api/reviews/${reviewId}/comments`, { reviewId, parentId: null, content: txt })
+                .then(res => res.ok ? e.target.reset() : Promise.reject())
+                .then(() => location.reload())
+                .catch(() => alert('등록 실패'));
+        });
+    </script>
+</div>
